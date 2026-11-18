@@ -67,7 +67,7 @@ textarea{min-height:76px;resize:none;font-size:16px}
   <small>AUTOCRYPT · VTR연구소</small>
   <h1>공용차량 운행일지</h1>
   <p class="big" style="margin-bottom:14px">무엇보다 소중한 건 여러분의 안전입니다</p><p>오늘도 안전운전 부탁드려요 :)<br>사진은 운행 종료 후에만 찰칵! 📸</p>
-  <div class="car-tag">테슬라 Y · 15허 0731</div>
+  <div class="car-tag" id="carTag">테슬라 Y · 15허 0731</div>
 </div>
 
 <div class="wrap">
@@ -150,10 +150,13 @@ textarea{min-height:76px;resize:none;font-size:16px}
 <script>
 // ===== 설정 (여기만 바꾸면 돼요) =====
 const CONFIG = {
-  ENDPOINT: "",          // Power Automate 웹후크 URL
+  ENDPOINT: "https://defaultb7f3bb90fd9f4bfab8844a11e7c213.1f.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/12/workflows/61d4d61d12aa4c98aad64182977bd3e3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=JXY5nSVWfiTKeAzGkd8wfQszSLu_tbcDDzNs8-5biEU",          // Power Automate 웹후크 URL
   SECRET:   "",          // 흐름에서 확인하는 비밀 코드 (QR 주소의 ?k= 값으로도 전달 가능)
   CAR:      "테슬라 Y (15허 0731)"
 };
+const CARS = { tesla:{name:"테슬라 Y (15허 0731)",tag:"테슬라 Y · 15허 0731"}, bmw:{name:"BMW iX (14머7936)",tag:"BMW iX · 14머7936"} };
+{ const c = CARS[(new URLSearchParams(location.search).get("car")||"tesla").toLowerCase()] || CARS.tesla;
+  CONFIG.CAR = c.name; document.getElementById("carTag").textContent = c.tag; document.title = "[VTR연구소] 공용차량 운행일지 · " + c.name; }
 // ====================================
 const $ = s => document.querySelector(s);
 const q = new URLSearchParams(location.search);
