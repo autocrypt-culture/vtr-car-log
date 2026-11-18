@@ -227,7 +227,8 @@ $("#go").onclick=async()=>{
   try{
     localStorage.setItem("vl_dept",v.dept);localStorage.setItem("vl_name",v.name);
     if(!CONFIG.ENDPOINT) throw new Error("ENDPOINT 미설정");
-    await fetch(CONFIG.ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(body)});
+    const res=await fetch(CONFIG.ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    if(!res.ok) throw new Error("HTTP "+res.status);
     $("#doneT").textContent=type==="start"?"출발 기록 완료!":"종료 기록 완료!";
     $("#doneP").textContent=type==="start"?"안전 운행하세요":"수고하셨어요. 다음 사람을 위해 충전기 꽂아주세요";
     $("#done").style.display="flex";
