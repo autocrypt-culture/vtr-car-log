@@ -243,8 +243,7 @@ $("#go").onclick=async()=>{
     const res=await fetch(CONFIG.ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
     if(!res.ok) throw new Error("HTTP "+res.status);
     $("#doneT").textContent=type==="start"?"출발 기록 완료!":"종료 기록 완료!";
-    $("#doneP").innerHTML=type==="start"?"안전 운행하세요":"수고하셨어요.<br>다음 사람을 위해 충전기 꽂아주세요";
-    if(Number(v.bat)<50)$("#doneP").innerHTML+='<br><b style="color:#9A5B00">충전량이 낮아요. 충전 꼭 부탁드려요</b>';
+    $("#doneP").innerHTML=type==="start"?"안전 운행하세요":"오늘도 수고하셨어요.<br>내리기 전에 쓰레기와 개인 물품을<br>한 번 더 확인해주세요";
     $("#done").style.display="flex";
   }catch(e){
     btn.disabled=false;btn.textContent=type==="start"?"시작 기록하기":"종료 기록하기";
